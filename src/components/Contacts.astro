@@ -1,0 +1,70 @@
+---
+import Section from "./Section.astro";
+import Icon from "./Icon.astro";
+import { TEL, VIBER, MAILTO, EMAIL, MAPS, PHONE_TEXT, HOURS, SOCIALS } from "../data/clinic";
+---
+<Section id="kontakty" rec="R-010,UX-R008" class="plate contacts">
+  <div class="container contacts__grid">
+    <div class="contacts__route">
+      <h2>Як нас знайти</h2>
+      <ol class="steps" data-steps>
+        <li style="--i:0">вул. Стрийська, 108, Львів</li>
+        <li style="--i:1">ЖК «Національний», бізнес-центр</li>
+        <li style="--i:2">6 корпус</li>
+        <li style="--i:3" class="steps__floor">
+          <span>4 поверх</span>
+          <svg class="arc" viewBox="0 0 240 40" aria-hidden="true" focusable="false"><path d="M4 4 C 60 44, 180 44, 236 4" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" /></svg>
+        </li>
+      </ol>
+      <p class="contacts__motto">Стоматологія на висоті, буквально.</p>
+    </div>
+    <div class="contacts__side">
+      <a class="btn btn--ghost contacts__map" href={MAPS} target="_blank" rel="noopener"><Icon name="route" />Прокласти маршрут</a>
+      <dl class="cinfo">
+        <div><dt>Телефон</dt><dd><a class="link num" href={TEL}>{PHONE_TEXT}</a></dd></div>
+        <div><dt>Viber</dt><dd><a class="link" href={VIBER}>Написати у Viber</a></dd></div>
+        <div><dt>E-mail</dt><dd><a class="link" href={MAILTO}>{EMAIL}</a></dd></div>
+        <div><dt>Години роботи</dt><dd>{HOURS.map((h) => <span class="cinfo__h"><span>{h.d}</span> <span class="num">{h.t}</span></span>)}</dd></div>
+      </dl>
+      <p class="contacts__reviews"><a class="link" href={MAPS} target="_blank" rel="noopener">Відгуки пацієнтів на Google Maps</a></p>
+      <ul class="social" aria-label="Соцмережі UP Dent">
+        {SOCIALS.map((s) => <li><a href={s.href} target="_blank" rel="noopener">{s.name}</a></li>)}
+      </ul>
+    </div>
+  </div>
+</Section>
+
+<style>
+  .contacts { padding-block: var(--section-gap); }
+  .contacts__grid { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: var(--s6) var(--gutter); align-items: end; }
+  .contacts__route { grid-column: 1 / span 7; }
+  .steps { margin-top: var(--s5); display: grid; gap: var(--s2); }
+  .steps li { color: var(--color-on-brand-2); font-size: clamp(1.125rem, 1rem + 0.6vw, 1.5rem); line-height: 1.25; padding-left: var(--s4); position: relative; }
+  .steps li::before { content: ""; position: absolute; left: 0; top: 0.5em; width: 10px; height: 10px; border-radius: 50%; background: var(--color-accent); }
+  .steps li:nth-child(2) { font-size: clamp(1.25rem, 1.05rem + 0.9vw, 1.875rem); }
+  .steps li:nth-child(3) { font-size: clamp(1.5rem, 1.2rem + 1.3vw, 2.375rem); color: var(--color-on-brand); }
+  .steps__floor { margin-top: var(--s1); }
+  .steps__floor::before { top: 0.6em !important; width: 14px !important; height: 14px !important; }
+  .steps__floor span { display: block; font-family: var(--font-display); font-size: var(--fs-big); line-height: 1; color: var(--color-on-brand); }
+  .arc { display: block; width: clamp(160px, 14vw, 240px); height: auto; color: var(--color-accent); margin-top: var(--s1); }
+  .contacts__motto { margin-top: var(--s4); color: var(--color-on-brand-2); font-size: var(--fs-lead); }
+  .contacts__side { grid-column: 8 / span 5; }
+  .contacts__map { width: 100%; }
+  .cinfo { margin: var(--s4) 0 0; display: grid; }
+  .cinfo div { display: grid; grid-template-columns: minmax(0, 2fr) minmax(0, 3fr); gap: var(--s2); padding-block: 12px; border-top: 1px solid var(--color-line-on-brand); }
+  .cinfo dt { color: var(--color-on-brand-2); font-size: 0.9375rem; }
+  .cinfo dd { margin: 0; overflow-wrap: anywhere; }
+  .cinfo a { display: inline-flex; min-height: 28px; align-items: center; }
+  .cinfo__h { display: block; }
+  .contacts__reviews { margin-top: var(--s3); }
+  .social { display: flex; flex-wrap: wrap; gap: var(--s1) var(--s3); margin-top: var(--s2); }
+  .social a { display: inline-flex; align-items: center; min-height: 44px; color: var(--color-on-brand); text-decoration: none; border-bottom: 1px solid var(--color-line-on-brand); transition: border-color 200ms var(--ease-out); }
+  .social a:hover { border-bottom-color: var(--color-accent); }
+
+  @media (max-width: 1023px) {
+    .contacts__route, .contacts__side { grid-column: 1 / -1; }
+  }
+  @media (max-width: 767px) {
+    .cinfo div { grid-template-columns: minmax(0, 1fr); gap: 4px; }
+  }
+</style>

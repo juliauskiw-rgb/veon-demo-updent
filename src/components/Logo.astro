@@ -1,0 +1,19 @@
+---
+// Logo plate: the client's mark (white, cut from the intro frame of the clinic video) on the brand plate. Leads to the top of the page.
+import { Image } from "astro:assets";
+import mark from "../assets/client/logo-mark.png";
+interface Props { size?: "sm" | "md"; }
+const { size = "sm" } = Astro.props;
+---
+<a class:list={["logo", `logo--${size}`]} href="#top" aria-label="UP Dent, на початок сторінки">
+  <Image src={mark} alt="" widths={[120, 240, 355]} sizes={size === "md" ? "120px" : "70px"} loading="eager" />
+</a>
+
+<style>
+  .logo { display: inline-flex; align-items: center; justify-content: center; background: var(--color-brand); text-decoration: none; flex: none; }
+  .logo img { width: auto; height: 100%; }
+  .logo--sm { height: 56px; padding: 4px 12px; }
+  .logo--md { height: 104px; padding: 12px 20px; }
+  .logo:focus-visible { outline: 2px solid var(--color-brand); outline-offset: 3px; }
+  @media (max-width: 767px) { .logo--sm { height: 44px; padding: 4px 8px; } }
+</style>

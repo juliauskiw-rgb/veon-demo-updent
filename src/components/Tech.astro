@@ -1,0 +1,77 @@
+---
+// Equipment from S-F005. The clinic's claim «перший у Львові» is not verified and is not shown.
+import { Picture } from "astro:assets";
+import Section from "./Section.astro";
+import FutureLink from "./FutureLink.astro";
+import ct from "../assets/client/ct-doctors.png";
+import steril from "../assets/client/sterilization.png";
+import { FUTURE } from "../data/clinic";
+
+const items = [
+  { name: "КТ AXEOS", text: "Комп'ютерний томограф: об'ємний знімок щелеп для планування лікування й імплантації." },
+  { name: "Primescan", text: "Інтраоральний сканер: цифровий відбиток зубів." },
+  { name: "Установки Intego", text: "Стоматологічні установки Dentsply Sirona в кабінетах." },
+  { name: "XIOS XG Supreme", text: "Візіограф: цифрові знімки окремих зубів." },
+  { name: "Heliodent Plus", text: "Цифровий прицільний рентген." },
+  { name: "Мікроскоп CJ Optic", text: "Стереомікроскоп для лікування кореневих каналів." },
+  { name: "MELAG, DAC Universal, DAC Premium Plus", text: "Термодезінфектор і автоклави для стерилізації інструментів." },
+  { name: "Очищення повітря", text: "Окрема система очищення повітря в клініці." },
+];
+---
+<Section id="tekhnolohii" class="section tech">
+  <div class="container">
+    <div class="tech__head">
+      <h2>Dentsply Sirona і власна стерилізаційна</h2>
+      <p>Технології і стерильність: томограф, сканер і мікроскоп у кабінетах, стерилізація інструментів MELAG і DAC.</p>
+    </div>
+    <figure class="tech__wide">
+      <Picture src={ct} formats={["avif", "webp"]} widths={[640, 960, 1277]} sizes="(max-width: 1320px) 100vw, 1320px" alt="Лікарі UP Dent розглядають тривимірний знімок на моніторі" data-rec="R-012" />
+    </figure>
+    <div class="tech__body">
+      <ul class="tech__list">
+        {items.map((it) => (
+          <li>
+            <h3>{it.name}</h3>
+            <p>{it.text}</p>
+          </li>
+        ))}
+      </ul>
+      <aside class="tech__side">
+        <Picture src={steril} formats={["avif", "webp"]} widths={[390, 682]} sizes="(max-width: 767px) 100vw, 30vw" alt="Стерилізаційна: асистентка біля автоклавів і термодезінфектора" />
+        <p class="tech__cap">Стерилізаційна клініки</p>
+        <p class="tech__more"><FutureLink note={FUTURE} class="future-tag">Усе про обладнання</FutureLink></p>
+      </aside>
+    </div>
+  </div>
+</Section>
+
+<style>
+  .tech__head { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: var(--s2) var(--gutter); align-items: end; margin-bottom: var(--s5); }
+  .tech__head h2 { grid-column: 1 / span 6; }
+  .tech__head p { grid-column: 8 / span 5; color: var(--color-text-2); }
+  .tech__wide { margin: 0; }
+  .tech__wide :global(img) { width: 100%; height: auto; aspect-ratio: 1277 / 408; object-fit: cover; }
+  .tech__body { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: var(--s5) var(--gutter); margin-top: var(--s6); }
+  .tech__list { grid-column: 1 / span 8; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); column-gap: var(--gutter); }
+  .tech__list li { border-top: 1px solid var(--color-line); padding: var(--s3) 0 var(--s4); }
+  .tech__list h3 { overflow-wrap: break-word; min-width: 0; }
+  .tech__list p { margin-top: var(--s1); color: var(--color-text-2); max-width: 38ch; }
+  .tech__side { grid-column: 10 / span 3; align-self: start; position: sticky; top: calc(var(--header-h) + var(--s3)); }
+  .tech__side :global(img) { width: 100%; height: auto; aspect-ratio: 3 / 4; object-fit: cover; object-position: 62% 50%; }
+  .tech__cap { margin-top: var(--s1); font-size: var(--fs-small); color: var(--color-text-2); }
+  .tech__more { margin-top: var(--s3); }
+  @media (max-width: 1023px) {
+    .tech__head h2, .tech__head p { grid-column: 1 / -1; }
+    .tech__list { grid-column: 1 / -1; }
+    .tech__side { grid-column: 1 / -1; position: static; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: var(--s1) var(--gutter); }
+    .tech__side :global(picture) { grid-row: span 3; }
+    .tech__side :global(img) { aspect-ratio: 4 / 3; }
+  }
+  @media (max-width: 767px) {
+    .tech__wide { margin-inline: calc(-1 * var(--space)); }
+    .tech__wide :global(img) { aspect-ratio: 16 / 9; object-position: 45% 50%; }
+    .tech__body { margin-top: var(--s4); }
+    .tech__list { grid-template-columns: minmax(0, 1fr); }
+    .tech__side { display: block; }
+  }
+</style>

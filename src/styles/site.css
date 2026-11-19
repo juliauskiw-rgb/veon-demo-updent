@@ -1,0 +1,84 @@
+/* UP Dent: shared client styles (tokens only). Fonts are self-hosted via @fontsource (cyrillic + latin subsets, font-display: swap). */
+@import "@fontsource/forum/400.css";
+@import "@fontsource/onest/400.css";
+@import "@fontsource/onest/500.css";
+@import "@fontsource/onest/600.css";
+
+body { font-size: var(--fs-body); font-feature-settings: "kern"; }
+h1, h2, h3 { font-family: var(--font-display); font-weight: 400; line-height: 1.08; margin: 0; letter-spacing: 0; }
+h2 { font-size: var(--fs-h2); }
+h3 { font-size: var(--fs-h3); }
+p { margin: 0; }
+ul, ol { margin: 0; padding: 0; list-style: none; }
+.container { width: min(100% - 2 * var(--space), var(--container)); margin-inline: auto; }
+.num { font-variant-numeric: tabular-nums lining-nums; white-space: nowrap; }
+.section { padding-block: var(--section-gap); }
+:focus-visible { outline: 2px solid var(--color-brand); outline-offset: 2px; transition: none; }
+.plate :focus-visible, .plate:focus-visible { outline-color: var(--color-accent); }
+.skip-link { background: var(--color-brand); color: var(--color-on-brand); font-weight: 600; text-decoration: none; }
+
+/* Табличка: тёмно-зелёная поверхность */
+.plate { background: var(--color-brand); color: var(--color-on-brand); }
+.plate a { color: inherit; }
+
+/* Кнопки */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 12px;
+  min-height: var(--tap); padding: 0 28px; border-radius: var(--radius);
+  font: 600 1.0625rem/1.2 var(--font-body); text-decoration: none; white-space: nowrap;
+  border: 1.5px solid transparent; cursor: pointer;
+  transition: background-color 200ms var(--ease-out), color 200ms var(--ease-out), border-color 200ms var(--ease-out), transform 200ms var(--ease-out);
+}
+.btn:active { transform: translateY(1px); }
+.btn svg { width: 20px; height: 20px; flex: none; }
+.btn--primary { background: var(--color-brand); color: var(--color-on-brand); }
+.btn--primary:hover { background: var(--color-brand-hover); }
+.btn--ghost { border-color: var(--color-brand); color: var(--color-brand); background: transparent; }
+.btn--ghost:hover { background: var(--color-brand); color: var(--color-on-brand); }
+.plate .btn--primary { background: var(--color-accent); color: var(--color-accent-ink); }
+.plate .btn--primary:hover { background: var(--color-accent-hover); }
+.plate .btn--ghost { border-color: var(--color-on-brand); color: var(--color-on-brand); }
+.plate .btn--ghost:hover { background: var(--color-on-brand); color: var(--color-brand); }
+.btn-row { display: flex; flex-wrap: wrap; gap: 12px; }
+@media (max-width: 559px) {
+  .btn-row { flex-direction: column; }
+  .btn-row .btn { width: 100%; }
+}
+
+/* Текстовые ссылки на реальные каналы */
+.link { color: inherit; text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 0.22em; transition: text-decoration-color 200ms var(--ease-out); }
+.link:hover { text-decoration-thickness: 2px; }
+
+/* FutureLink: будущая страница, спокойное неактивное состояние */
+.future-link { color: inherit; }
+.future-link:focus-visible { outline: 2px solid currentColor; outline-offset: 3px; }
+.future-link__note[aria-hidden="true"] { background: var(--color-text); color: var(--color-surface); font: 500 0.8125rem/1.2 var(--font-body); padding: 8px 12px; }
+.plate .future-link__note[aria-hidden="true"] { background: var(--color-on-brand); color: var(--color-brand); }
+.future-tag { font-size: var(--fs-small); color: var(--color-text-2); border-bottom: 1px dashed var(--color-line); padding-bottom: 1px; cursor: default; }
+.plate .future-tag { color: var(--color-on-brand-2); border-color: var(--color-line-on-brand); }
+
+/* Иконки */
+.icon { width: 20px; height: 20px; flex: none; }
+
+/* Browser surfaces from the palette */
+html { overflow-x: clip; scrollbar-color: var(--color-text-2) var(--color-bg); }
+body { overflow-x: clip; }
+::selection { background: var(--color-brand); color: var(--color-on-brand); }
+
+/* Motion 2 (signature): the route in «Як нас знайти» reads as a climb to the door. Hidden only under .js (set in Base.astro). */
+.js [data-steps] li { opacity: 0; transform: translateY(8px); transition: opacity 300ms var(--ease-out), transform 300ms var(--ease-out); transition-delay: calc(var(--i) * 90ms); }
+.js [data-steps].is-visible li { opacity: 1; transform: none; }
+.js [data-steps] .arc { clip-path: inset(0 100% 0 0); transition: clip-path 450ms var(--ease-out) 360ms; }
+.js [data-steps].is-visible .arc { clip-path: inset(0 0 0 0); }
+@media (max-width: 767px) { .js [data-steps] .arc { clip-path: none; transition: none; } }
+@media (prefers-reduced-motion: reduce) {
+  .js [data-steps] li { opacity: 1; transform: none; transition: none; }
+  .js [data-steps] .arc { clip-path: none; transition: none; }
+}
+
+/* FutureLink on touch screens: the note opens on tap and closes on a second tap or a tap elsewhere (src/scripts/motion.ts), it never sticks to :hover. */
+@media (hover: none) {
+  .future-link:hover .future-link__note { opacity: 0; transform: translate(-50%, -4px); }
+}
+.future-link.is-open .future-link__note, .future-link.is-open:hover .future-link__note { opacity: 1; transform: translate(-50%, 0); }
+main:focus { outline: none; }

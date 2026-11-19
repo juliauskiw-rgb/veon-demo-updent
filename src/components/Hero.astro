@@ -1,0 +1,88 @@
+---
+import { Picture } from "astro:assets";
+import Section from "./Section.astro";
+import Icon from "./Icon.astro";
+import reception from "../assets/client/interior-reception.png";
+import cabinet from "../assets/client/interior-cabinet.png";
+import equipment from "../assets/client/equipment-monitor.png";
+import { TEL, VIBER, ROUTE, HOURS } from "../data/clinic";
+---
+<Section id="top" rec="UX-R002,GA-R003" class="hero">
+  <div class="plate hero__plate">
+    <div class="container hero__grid">
+      <div class="hero__main">
+        <h1 data-rec="R-005,UX-R005">Сімейна стоматологія у Львові на Стрийській, 108</h1>
+        <p class="hero__lead">Лікуємо дорослих і дітей. Консультація з планом лікування&nbsp;— <span class="num">600 грн</span>.</p>
+        <div class="btn-row hero__cta">
+          <a class="btn btn--primary" href={TEL}><Icon name="phone" />Зателефонувати</a>
+          <a class="btn btn--ghost" href={VIBER}><Icon name="viber" />Написати у Viber</a>
+        </div>
+      </div>
+      <aside class="hero__sign" aria-label="Як дійти і коли ми працюємо">
+        <ol class="route">
+          {ROUTE.map((r, i) => <li class:list={{ last: i === ROUTE.length - 1 }}>{r}</li>)}
+        </ol>
+        <p class="route--short">Стрийська, 108, 6 корпус, <strong>4 поверх</strong></p>
+        <dl class="hours">
+          {HOURS.map((h) => <div><dt>{h.d}</dt><dd class="num">{h.t}</dd></div>)}
+        </dl>
+      </aside>
+    </div>
+  </div>
+  <div class="hero__pano container" data-pano data-rec="R-012">
+    <Picture class="pano pano--a" src={reception} formats={["avif", "webp"]} widths={[390, 524]} sizes="(max-width: 767px) 100vw, 40vw" alt="Ресепшн клініки UP Dent з логотипом на стіні і зоною очікування" loading="eager" fetchpriority="high" />
+    <Picture class="pano pano--b" src={cabinet} formats={["avif", "webp"]} widths={[420, 682]} sizes="30vw" alt="Стоматологічний кабінет зі світлою установкою" />
+    <Picture class="pano pano--c" src={equipment} formats={["avif", "webp"]} widths={[420, 548]} sizes="30vw" alt="Монітор із тривимірним знімком щелепи біля стоматологічної установки" />
+  </div>
+</Section>
+
+<style>
+  .hero__plate { padding-block: clamp(36px, 2rem + 3vw, 80px); }
+  .hero__grid { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--gutter); row-gap: var(--s5); align-items: end; }
+  .hero__main { grid-column: 1 / span 8; }
+  .hero__sign { grid-column: 9 / span 4; }
+  h1 { font-size: var(--fs-h1); line-height: 1.04; max-width: 19ch; text-wrap: balance; overflow-wrap: break-word; min-width: 0; }
+  .hero__lead { margin-top: var(--s3); font-size: var(--fs-lead); color: var(--color-on-brand-2); max-width: 46ch; }
+  .hero__lead .num { color: var(--color-on-brand); font-weight: 600; }
+  .hero__cta { margin-top: var(--s4); }
+
+  .route { position: relative; display: grid; gap: 16px; padding-left: 28px; }
+  .route::before { content: ""; position: absolute; left: 4px; top: 10px; bottom: 10px; width: 1px; background: var(--color-line-on-brand); }
+  .route li { position: relative; color: var(--color-on-brand-2); line-height: 1.35; }
+  .route li::before { content: ""; position: absolute; left: -28px; top: 0.5em; width: 9px; height: 9px; border-radius: 50%; background: var(--color-accent); }
+  .route li.last { color: var(--color-on-brand); font-weight: 600; font-size: 1.125rem; }
+  .route--short { display: none; }
+  .hours { margin: var(--s4) 0 0; padding-top: var(--s3); border-top: 1px solid var(--color-line-on-brand); display: grid; gap: 8px; }
+  .hours div { display: flex; justify-content: space-between; gap: var(--s2); }
+  .hours dt { color: var(--color-on-brand-2); }
+  .hours dd { margin: 0; color: var(--color-on-brand); }
+
+  .hero__pano { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr) minmax(0, 1fr); gap: 8px; margin-top: 8px; }
+  .pano, .hero__pano :global(img) { width: 100%; height: clamp(240px, 24vw, 360px); object-fit: cover; display: block; }
+
+  /* Motion 1: the clinic opens behind the plate (clip-path top to bottom). Only with scripting; off for reduced motion. */
+  :global(.js) [data-pano] { transition: clip-path 700ms var(--ease-out); }
+  :global(.js) [data-pano]:not(.is-open) { clip-path: inset(0 0 100% 0); }
+  @media (max-width: 767px) { :global(.js) [data-pano] { transition-duration: 500ms; } }
+  @media (prefers-reduced-motion: reduce) { :global(.js) [data-pano], :global(.js) [data-pano]:not(.is-open) { clip-path: none; transition: none; } }
+
+  @media (max-width: 1023px) {
+    .hero__main { grid-column: 1 / -1; }
+    .hero__sign { grid-column: 1 / -1; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: var(--s4); align-items: start; }
+    .hours { margin-top: 0; padding-top: 0; border-top: 0; }
+  }
+  @media (max-width: 767px) {
+    .hero__plate { padding-block: 28px 32px; }
+    .hero__grid { row-gap: var(--s3); }
+    .hero__cta { margin-top: var(--s3); }
+    .hero__sign { display: block; }
+    .route { display: none; }
+    .route--short { display: block; color: var(--color-on-brand); }
+    .route--short strong { font-weight: 600; }
+    .hours { display: flex; flex-wrap: wrap; gap: 4px 20px; margin-top: 8px; }
+    .hours div { justify-content: flex-start; gap: 8px; }
+    .hero__pano { grid-template-columns: minmax(0, 1fr); padding-inline: 0; width: 100%; margin-top: 0; }
+    .hero__pano :global(picture:not(:first-child)) { display: none; }
+    .hero__pano :global(img) { height: auto; aspect-ratio: 4 / 3; }
+  }
+</style>

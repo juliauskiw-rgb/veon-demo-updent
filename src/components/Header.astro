@@ -1,0 +1,101 @@
+---
+import Logo from "./Logo.astro";
+import Icon from "./Icon.astro";
+import FutureLink from "./FutureLink.astro";
+import { NAV, TEL, VIBER, PHONE_TEXT, FUTURE, ROUTE, HOURS } from "../data/clinic";
+---
+<header class="hdr" data-rec="UX-R001">
+  <div class="hdr__in container">
+    <Logo />
+    <nav class="hdr__nav" aria-label="Розділи сторінки">
+      <ul>
+        {NAV.map((n) => <li><a href={n.href}>{n.label}</a></li>)}
+      </ul>
+    </nav>
+    <div class="hdr__act">
+      <a class="hdr__tel" href={TEL}><Icon name="phone" /><span class="hdr__tel-full">{PHONE_TEXT}</span><span class="hdr__tel-short">067 44 212 44</span></a>
+      <a class="hdr__viber btn btn--ghost" href={VIBER}><Icon name="viber" /><span>Viber</span></a>
+      <span class="hdr__lang">
+        <FutureLink note={FUTURE}>EN</FutureLink>
+        <FutureLink note={FUTURE}>PL</FutureLink>
+      </span>
+      <details class="mnav">
+        <summary aria-label="Меню"><span class="mnav__bars" aria-hidden="true"></span></summary>
+        <div class="mnav__panel">
+          <nav aria-label="Меню">
+            <ul class="mnav__list">
+              {NAV.map((n) => <li><a href={n.href}>{n.label}</a></li>)}
+            </ul>
+          </nav>
+          <div class="mnav__cta">
+            <a class="btn btn--primary" href={TEL}><Icon name="phone" />Зателефонувати</a>
+            <a class="btn btn--ghost" href={VIBER}><Icon name="viber" />Написати у Viber</a>
+          </div>
+          <p class="mnav__meta">{ROUTE.join(", ")}</p>
+          <p class="mnav__meta">{HOURS.map((h) => `${h.d} ${h.t}`).join("; ")}</p>
+          <p class="mnav__lang"><FutureLink note={FUTURE}>English</FutureLink> <FutureLink note={FUTURE}>Polski</FutureLink></p>
+        </div>
+      </details>
+    </div>
+  </div>
+</header>
+
+<style>
+  .hdr { position: sticky; top: 0; z-index: 50; background: var(--color-surface); border-bottom: 1px solid var(--color-line); }
+  .hdr__in { height: var(--header-h); display: flex; align-items: center; gap: var(--s4); }
+  .hdr__nav { margin-inline-start: auto; }
+  .hdr__nav ul { display: flex; gap: clamp(16px, 1.6vw, 28px); }
+  .hdr__nav a, .hdr__tel { font-weight: 500; font-size: 0.9375rem; text-decoration: none; color: var(--color-text); padding-block: 8px; background-image: linear-gradient(var(--color-brand), var(--color-brand)); background-size: 0 1.5px; background-repeat: no-repeat; background-position: 0 100%; transition: background-size 200ms var(--ease-out); }
+  .hdr__nav a:hover { background-size: 100% 1.5px; }
+  .hdr__act { display: flex; align-items: center; gap: var(--s3); }
+  .hdr__tel { display: inline-flex; align-items: center; gap: 8px; font-variant-numeric: tabular-nums; white-space: nowrap; min-height: 44px; }
+  .hdr__tel:hover { background-size: 100% 1.5px; }
+  .hdr__tel-short { display: none; }
+  .hdr__viber { min-height: 44px; padding: 0 16px; font-size: 0.9375rem; }
+  .hdr__lang { display: inline-flex; gap: 12px; font-size: var(--fs-small); color: var(--color-text-2); }
+  .hdr__lang :global(.future-link) { min-height: 44px; padding-inline: 2px; }
+  .mnav { display: none; }
+
+  @media (max-width: 1239px) {
+    .hdr__tel-full { display: none; }
+    .hdr__in { gap: var(--s3); }
+  }
+  @media (max-width: 1023px) {
+    .hdr__nav, .hdr__viber, .hdr__lang { display: none; }
+    .hdr__act { margin-inline-start: auto; gap: var(--s2); }
+    .hdr__tel-short { display: inline; }
+    .mnav { display: block; }
+  }
+  @media (max-width: 359px) { .hdr__tel .icon { display: none; } }
+
+  .mnav summary { list-style: none; width: 44px; height: 44px; display: grid; place-items: center; cursor: pointer; border-radius: var(--radius); }
+  .mnav summary::-webkit-details-marker { display: none; }
+  .mnav__bars, .mnav__bars::before, .mnav__bars::after { display: block; width: 22px; height: 1.5px; background: var(--color-text); position: relative; transition: transform 200ms var(--ease-out), opacity 200ms var(--ease-out); }
+  .mnav__bars::before, .mnav__bars::after { content: ""; position: absolute; left: 0; }
+  .mnav__bars::before { transform: translateY(-7px); }
+  .mnav__bars::after { transform: translateY(7px); }
+  .mnav[open] .mnav__bars { background: transparent; }
+  .mnav[open] .mnav__bars::before { transform: rotate(45deg); }
+  .mnav[open] .mnav__bars::after { transform: rotate(-45deg); }
+  .mnav__panel { position: fixed; inset-inline: 0; top: var(--header-h); width: 100%; background: var(--color-surface); border-bottom: 1px solid var(--color-line); padding: var(--s2) var(--space) var(--s4); max-height: calc(100dvh - var(--header-h)); overflow-y: auto; }
+  .mnav__list a { display: flex; align-items: center; min-height: var(--tap); font-family: var(--font-display); font-size: 1.75rem; color: var(--color-text); text-decoration: none; border-bottom: 1px solid var(--color-line); }
+  .mnav__cta { display: grid; gap: 12px; margin-block: var(--s3); }
+  .mnav__meta { color: var(--color-text-2); font-size: 0.9375rem; margin-top: 8px; }
+  .mnav__lang { display: flex; gap: var(--s3); margin-top: var(--s2); color: var(--color-text-2); }
+  .mnav__lang :global(.future-link) { min-height: 44px; }
+</style>
+
+<script>
+  // Close the mobile menu after choosing a section.
+  // Escape closes the open menu and returns focus to the burger.
+  document.addEventListener("keydown", (e) => {
+    if (e.key !== "Escape") return;
+    const open = document.querySelector<HTMLDetailsElement>(".mnav[open]");
+    if (!open) return;
+    open.removeAttribute("open");
+    open.querySelector<HTMLElement>("summary")?.focus();
+  });
+  document.querySelectorAll<HTMLAnchorElement>(".mnav a[href^='#']").forEach((a) => {
+    a.addEventListener("click", () => a.closest("details")?.removeAttribute("open"));
+  });
+</script>

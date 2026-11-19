@@ -1,0 +1,52 @@
+/* Hallmark · theme: custom · job: book · idea: "Стоматологія на висоті буквально: вывеска-навигатор UP Dent ведёт от цены и врача до двери на 4 поверсі" · vibe: "спокойная вывеска, честные цены, светлый интерьер" · paper: #EEF1EE · accent: #5CC85A (только на #14390F) · display: Forum · body: Onest · hero: широкая тёмно-зелёная табличка с H1, звонком и маршрутом + панорама интерьера под ней · nav: светлая строка с 6 якорями, номером и Viber · footer: светлый компактный · imagery: client photos · signature: маршрут «Стрийська, 108 → 6 корпус → 4 поверх» с дугой из логотипа · axes: light/roman-serif/chromatic-green · posture: committed (тёмно-зелёные таблички — заявленная поверхность, не акцент; рядом тема Garden — отличие: холодная стена вместо кремовой бумаги, тонкая инскрипционная антиква, табличный первый экран вместо split-hero) · contrast: pass · fold: pass · v2.0.0 */
+/* Hallmark · pre-emit critique: P4 H4 E4 S4 R4 V4 · weakest: imagery (фото клиента вырезаны из скриншотов 1440/390 — сайт клиента недоступен), поэтому панорама собрана из трёх кадров в родном размере вместо одного растянутого */
+/* Hallmark · waive 39b · a.btn 56px at 1440 · concept.md «Дизайн-система для FULL»: кнопки 56 px, цели касания для пациентов всех возрастов (утверждённая концепция важнее правила) */
+/* Hallmark · waive 44c · hero ends at 985px at 1440, visual centre below the text · concept.md §5 «Первый экран»: табличка с H1, кнопками и маршрутом на всю ширину, панорама интерьера — под ней, в первом экране виден её верх; H1, фраза и обе кнопки в первом экране на 1280×800 и 390 (утверждённая концепция важнее правила) */
+/* Hallmark · F4 · главная кнопка одна по роли (звонок): на светлом — тёмно-зелёная, на табличке — светло-зелёная ради контраста; концепция §5, «Кнопки» */
+/* Client design tokens from design/concept.md (veon-concept: colors, fonts). */
+:root {
+  /* palette */
+  --color-bg: #EEF1EE;          /* стена */
+  --color-surface: #F8FAF8;     /* поверхность */
+  --color-text: #18201A;
+  --color-text-2: #4C574F;
+  --color-brand: #14390F;       /* табличка, кнопка на светлом */
+  --color-accent: #5CC85A;      /* только на табличке */
+  --color-accent-ink: #0E2410;
+  --color-on-brand: #F6F8F5;
+  --color-on-brand-2: #C3D3C4;
+  --color-oak: #E8DCC6;         /* «дуб», блок «Дітям» */
+  --color-line: #C9D1CB;
+  --color-line-on-brand: color-mix(in srgb, #F6F8F5 24%, #14390F);
+  --color-brand-hover: color-mix(in srgb, #14390F 92%, #000000);
+  --color-accent-hover: color-mix(in srgb, #5CC85A 92%, #000000);
+  --color-shade: color-mix(in srgb, #18201A 8%, transparent);
+
+  /* type */
+  --font-display: "Forum", "Times New Roman", Georgia, serif;
+  --font-body: "Onest", "Segoe UI", system-ui, sans-serif;
+  --fs-h1: clamp(2.25rem, 1.15rem + 4.3vw, 4.75rem);
+  --fs-big: clamp(3rem, 2.2rem + 3vw, 4.5rem);
+  --fs-h2: clamp(1.875rem, 1.35rem + 2vw, 2.75rem);
+  --fs-h3: clamp(1.375rem, 1.15rem + 0.8vw, 1.75rem);
+  --fs-body: clamp(1rem, 0.96rem + 0.15vw, 1.0625rem);
+  --fs-lead: clamp(1.0625rem, 0.98rem + 0.35vw, 1.1875rem);
+  --fs-small: 0.875rem;
+
+  /* shape and rhythm */
+  --radius: 2px;
+  --space: clamp(1.25rem, 0.4rem + 3.4vw, 3.5rem); /* поля 20 / 56 */
+  --container: 1320px;
+  --gutter: 24px;
+  --s1: 8px; --s2: 16px; --s3: 24px; --s4: 32px; --s5: 48px; --s6: 72px; --s7: 112px;
+  --section-gap: clamp(72px, 40px + 5vw, 112px);
+  --header-h: 72px;
+  --tap: 56px;
+
+  /* motion */
+  --ease-out: cubic-bezier(.2, .7, .2, 1);
+  --dur: 600ms;
+}
+@media (max-width: 767px) {
+  :root { --header-h: 60px; }
+}

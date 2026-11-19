@@ -1,0 +1,52 @@
+---
+import Base from "../layouts/Base.astro";
+import Header from "../components/Header.astro";
+import Hero from "../components/Hero.astro";
+import Prices from "../components/Prices.astro";
+import FirstVisit from "../components/FirstVisit.astro";
+import Kids from "../components/Kids.astro";
+import Tech from "../components/Tech.astro";
+import Team from "../components/Team.astro";
+import Contacts from "../components/Contacts.astro";
+import Footer from "../components/Footer.astro";
+import CallBar from "../components/CallBar.astro";
+import { SOCIALS } from "../data/clinic";
+
+const title = "Стоматологія у Львові, Стрийська 108 — ціни | UP Dent";
+const description = "Сімейна стоматологія UP Dent на Стрийській, 108: лікування, імплантація, брекети, дитячий стоматолог. Ціни на сайті. Консультація — 600 грн. Тел. 067 44 212 44";
+
+// Schema.org Dentist (R-011). No aggregateRating: the rating source is not confirmed (S-F004).
+const ld = {
+  "@context": "https://schema.org",
+  "@type": "Dentist",
+  name: "UP Dent",
+  telephone: "+380674421244",
+  email: "updent.lviv@gmail.com",
+  address: {
+    "@type": "PostalAddress",
+    streetAddress: "вул. Стрийська, 108, ЖК «Національний», бізнес-центр, 6 корпус, 4 поверх",
+    addressLocality: "Львів",
+    addressCountry: "UA",
+  },
+  geo: { "@type": "GeoCoordinates", latitude: 49.8105, longitude: 24.018 },
+  hasMap: "https://maps.app.goo.gl/fNbsUbPvz3YM7EGc8",
+  openingHoursSpecification: [
+    { "@type": "OpeningHoursSpecification", dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"], opens: "09:00", closes: "21:00" },
+    { "@type": "OpeningHoursSpecification", dayOfWeek: "Saturday", opens: "09:00", closes: "15:00" },
+  ],
+  sameAs: SOCIALS.map((s) => s.href),
+};
+---
+<Base lang="uk" title={title} description={description}>
+  <script slot="head" type="application/ld+json" data-rec="R-011" set:html={JSON.stringify(ld)} />
+  <Header slot="header" />
+  <Hero />
+  <Prices />
+  <FirstVisit />
+  <Kids />
+  <Tech />
+  <Team />
+  <Contacts />
+  <Footer slot="footer" />
+  <CallBar slot="footer" />
+</Base>

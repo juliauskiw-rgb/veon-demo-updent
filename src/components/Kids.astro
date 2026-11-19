@@ -1,0 +1,55 @@
+---
+import { Picture } from "astro:assets";
+import Section from "./Section.astro";
+import Icon from "./Icon.astro";
+import FutureLink from "./FutureLink.astro";
+import kids from "../assets/client/kids-appointment.png";
+import { TEL, VIBER, FUTURE } from "../data/clinic";
+---
+<Section id="dity" class="kids section">
+  <div class="kids__grid container">
+    <div class="kids__photo">
+      <Picture src={kids} formats={["avif", "webp"]} widths={[390, 640, 864]} sizes="(max-width: 767px) 100vw, 58vw" alt="Дитячий стоматолог в оранжевій формі оглядає дівчинку в кріслі" data-rec="R-012" />
+    </div>
+    <div class="kids__text">
+      <h2>Дитяча стоматологія</h2>
+      <p class="kids__lead">У команді UP Dent є дитячий стоматолог, а в прайсі клініки окремі розділи для дитячого лікування і дитячої ортодонтії.</p>
+      <dl class="kids__price">
+        <dt>Дитяча консультація</dt>
+        <dd class="num">500 грн</dd>
+      </dl>
+      <div class="btn-row">
+        <a class="btn btn--primary" href={TEL}><Icon name="phone" />Зателефонувати</a>
+        <a class="btn btn--ghost" href={VIBER}><Icon name="viber" />Viber</a>
+      </div>
+      <p class="kids__more"><FutureLink note={FUTURE} class="future-tag">Детальніше про дитячий прийом</FutureLink></p>
+    </div>
+  </div>
+</Section>
+
+<style>
+  .kids { background: var(--color-oak); container-type: inline-size; padding-block: 0; }
+  .kids__text { padding-block: var(--s6); }
+  .kids__grid { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 0 var(--gutter); align-items: stretch; }
+  .kids__photo { grid-column: 1 / span 7; margin-left: calc(-1 * (100cqw - min(100cqw - 2 * var(--space), var(--container))) / 2); }
+  .kids__photo :global(picture) { display: block; height: 100%; }
+  .kids__photo :global(img) { width: 100%; height: 100%; min-height: 100%; aspect-ratio: 864 / 572; object-fit: cover; }
+  .kids__text { align-self: center; }
+  .kids__text { grid-column: 8 / span 5; }
+  .kids__lead { margin-top: var(--s3); max-width: 42ch; }
+  .kids__price { margin: var(--s4) 0; display: flex; align-items: baseline; justify-content: space-between; gap: var(--s2); border-top: 1px solid var(--color-text); border-bottom: 1px solid var(--color-text); padding-block: var(--s2); }
+  .kids__price dt { color: var(--color-text); }
+  .kids__price dd { margin: 0; font-family: var(--font-display); font-size: var(--fs-h2); line-height: 1; }
+  .kids__more { margin-top: var(--s3); }
+  .kids :global(.future-tag) { color: var(--color-text); border-color: var(--color-text-2); }
+  @media (max-width: 1023px) {
+    .kids__photo { grid-column: 1 / span 6; }
+    .kids__text { grid-column: 7 / span 6; }
+  }
+  @media (max-width: 767px) {
+    .kids__text { padding-block: var(--s4) var(--s6); }
+    .kids__photo, .kids__text { grid-column: 1 / -1; }
+    .kids__photo { margin-inline: calc(-1 * var(--space)); }
+    .kids__photo :global(img) { height: auto; aspect-ratio: 4 / 3; object-position: 60% 50%; }
+  }
+</style>

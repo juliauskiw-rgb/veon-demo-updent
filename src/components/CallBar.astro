@@ -1,0 +1,25 @@
+---
+// Phone only: call / Viber bar after the first screen. Does not cover the footer (body gets bottom padding).
+import Icon from "./Icon.astro";
+import { TEL, VIBER } from "../data/clinic";
+---
+<div class="callbar" data-callbar data-rec="UX-R001">
+  <a class="btn btn--primary" href={TEL}><Icon name="phone" /><span class="cb__long">Зателефонувати</span><span class="cb__short">Дзвінок</span></a>
+  <a class="btn btn--ghost" href={VIBER}><Icon name="viber" />Viber</a>
+</div>
+
+<style>
+  .callbar { display: none; }
+  @media (max-width: 767px) {
+    :global(body) { padding-bottom: calc(var(--tap) + 24px + env(safe-area-inset-bottom)); }
+    :global(html) { scroll-padding-bottom: calc(var(--tap) + 24px + env(safe-area-inset-bottom)); }
+    .callbar { display: grid; grid-template-columns: minmax(0, 3fr) minmax(0, 2fr); gap: var(--s1); position: fixed; left: 0; right: 0; bottom: 0; z-index: 40; padding: 12px var(--space) calc(12px + env(safe-area-inset-bottom)); background: var(--color-brand); transition: transform 250ms var(--ease-out); }
+    .callbar .btn { padding-inline: var(--s2); gap: var(--s1); }
+    .cb__short { display: none; }
+    .callbar .btn--primary { background: var(--color-accent); color: var(--color-accent-ink); }
+    .callbar .btn--ghost { border-color: var(--color-on-brand); color: var(--color-on-brand); }
+    :global(.js) .callbar:not(.is-shown) { transform: translateY(110%); }
+  }
+  @media (max-width: 359px) { .cb__long { display: none; } .cb__short { display: inline; } }
+  @media (prefers-reduced-motion: reduce) { .callbar { transition: none; } }
+</style>

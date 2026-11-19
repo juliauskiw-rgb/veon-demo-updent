@@ -1,0 +1,48 @@
+---
+import Logo from "./Logo.astro";
+import FutureLink from "./FutureLink.astro";
+import { NAV, TEL, PHONE_TEXT, MAILTO, EMAIL, FUTURE } from "../data/clinic";
+---
+<footer class="ftr">
+  <div class="container ftr__grid">
+    <div class="ftr__brand">
+      <Logo size="md" />
+      <p class="ftr__addr">вул. Стрийська, 108, ЖК «Національний», бізнес-центр, 6 корпус, 4 поверх, Львів</p>
+    </div>
+    <nav class="ftr__col" aria-label="Розділи сторінки у підвалі">
+      <ul>{NAV.map((n) => <li><a href={n.href}>{n.label}</a></li>)}</ul>
+    </nav>
+    <div class="ftr__col">
+      <ul>
+        <li><a class="num" href={TEL}>{PHONE_TEXT}</a></li>
+        <li><a href={MAILTO}>{EMAIL}</a></li>
+      </ul>
+    </div>
+    <div class="ftr__col">
+      <ul>
+        <li><FutureLink note={FUTURE}>UP DENT ACADEMY: навчання для лікарів</FutureLink></li>
+        <li class="ftr__sub">Питання щодо навчання: <a href={MAILTO}>{EMAIL}</a></li>
+        <li><FutureLink note={FUTURE}>Статті</FutureLink></li>
+        <li><FutureLink note={FUTURE}>Політика конфіденційності</FutureLink></li>
+      </ul>
+    </div>
+  </div>
+  <div class="container ftr__bottom">
+    <p>UP Dent 2020–2026</p>
+  </div>
+</footer>
+
+<style>
+  .ftr { background: var(--color-bg); border-top: 1px solid var(--color-line); padding-block: var(--s6) var(--s4); font-size: 0.9375rem; }
+  .ftr__grid { display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 2fr) minmax(0, 3fr) minmax(0, 3fr); gap: var(--s5) var(--gutter); }
+  .ftr__addr { margin-top: var(--s3); color: var(--color-text-2); max-width: 32ch; }
+  .ftr__col ul { display: grid; gap: 4px; }
+  .ftr__col a, .ftr__col :global(.future-link) { display: inline-flex; align-items: center; min-height: 40px; color: var(--color-text); text-decoration: none; }
+  .ftr__col a:hover { text-decoration: underline; text-underline-offset: 0.22em; }
+  .ftr__col :global(.future-link) { color: var(--color-text-2); }
+  .ftr__sub { color: var(--color-text-2); font-size: var(--fs-small); }
+  .ftr__sub a { min-height: 32px; overflow-wrap: anywhere; }
+  .ftr__bottom { margin-top: var(--s5); padding-top: var(--s3); border-top: 1px solid var(--color-line); color: var(--color-text-2); font-size: var(--fs-small); }
+  @media (max-width: 1023px) { .ftr__grid { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); } }
+  @media (max-width: 559px) { .ftr__grid { grid-template-columns: minmax(0, 1fr); gap: var(--s4); } }
+</style>
